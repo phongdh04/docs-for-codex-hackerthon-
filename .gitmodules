@@ -1,0 +1,3 @@
+[submodule "guidelines"]
+	path = guidelines
+	url = https://hoangbao1510@bitbucket.org/ezisolutions/guidelines.git
