@@ -17,5 +17,5 @@ build/
 ### VS Code ###
 .vscode/
 
-*.zip
-sitemap.md
+AGENTS.md
+.agents
