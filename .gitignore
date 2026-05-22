@@ -19,3 +19,5 @@ build/
 
 AGENTS.md
 .agents
+!*/**/AGENTS.md
+!*/**/.agents
