@@ -27,16 +27,16 @@ flowchart TD
 
 | # | Bước | Actor | Tool/Action | Output |
 | --- | --- | --- | --- | --- |
-| 1 | Lấy kết quả review từ hệ thống | Lina | `get_reviewed_request` | Nội dung comment/feedback chi tiết từ Mattin, David, hoặc Leader. |
+| 1 | Lấy kết quả review từ hệ thống | Lina | `[../skills/lina-mcp/get-reviewed-request/SKILL.md](../skills/lina-mcp/get-reviewed-request/SKILL.md)` | Nội dung comment/feedback chi tiết từ Mattin, David, hoặc Leader. |
 | 2 | Phân tích và chỉnh sửa tài liệu | Lina | Đọc tài liệu gốc + Cập nhật nội dung theo feedback | File tài liệu gốc (EPIC/STORY) đã được sửa đổi, tối ưu logic. |
-| 3 | Upload tài liệu EPIC mới (nếu có) | Lina | `upload_epic_doc` | Tài liệu EPIC mới được cập nhật thành công lên hệ thống. |
-| 4 | Upload tài liệu STORY mới (nếu có) | Lina | `upload_story_doc` | Tài liệu STORY mới được cập nhật thành công lên hệ thống. |
+| 3 | Upload tài liệu EPIC mới (nếu có) | Lina | `[../skills/lina-mcp/upload-epic-doc/SKILL.md](../skills/lina-mcp/upload-epic-doc/SKILL.md)` | Tài liệu EPIC mới được cập nhật thành công lên hệ thống. |
+| 4 | Upload tài liệu STORY mới (nếu có) | Lina | `[../skills/lina-mcp/upload-story-doc/SKILL.md](../skills/lina-mcp/upload-story-doc/SKILL.md)` | Tài liệu STORY mới được cập nhật thành công lên hệ thống. |
 | 5 | Thông báo kết quả | Lina | Gửi log/message xác nhận | Báo cáo hoàn tất gửi tới Reviewer/User. |
 
 ## Definition of Done
 
-* [ ] Lấy thành công toàn bộ dữ liệu feedback bằng tool `get_reviewed_request`.
+* [ ] Lấy thành công toàn bộ dữ liệu feedback thông qua kỹ năng `get-reviewed-request`.
 * [ ] Mọi comment, điểm lưu ý từ Mattin, David, hoặc Leader đều được chỉnh sửa triệt để trong tài liệu mới.
-* [ ] Tài liệu được upload đúng phân loại (EPIC hoặc STORY) qua các tool chuyên biệt tương ứng.
+* [ ] Tài liệu được upload đúng phân loại (EPIC hoặc STORY) qua các kỹ năng chuyên biệt tương ứng.
 * [ ] Không xảy ra lỗi trùng lặp phiên bản hoặc ghi đè sai file trên hệ thống.
 * [ ] Trạng thái workflow được cập nhật thành công sang "Hoàn tất chỉnh sửa".

@@ -21,26 +21,23 @@ Kỹ năng định nghĩa toàn bộ tiêu chí và quy trình mà Mattin sử d
 | Tên | Kiểu dữ liệu | Mô tả chi tiết |
 |-----|--------------|----------------|
 | score | Integer | Số điểm tổng kết (Bắt đầu từ 100đ, trừ lùi) |
-| review_comment | Markdown | Báo cáo chi tiết lỗi tuân thủ định dạng chuẩn của guideline `review_report.md` (level epic) kèm giọng điệu gây áp lực ("Vai ác") |
+| review_comment | Markdown | Báo cáo chi tiết lỗi tuân thủ định dạng chuẩn của guideline `review_report.md` (level `EPIC`) kèm giọng điệu gây áp lực ("Vai ác") |
 
 ## Steps
 1. **Khởi tạo Khung Điểm:** Bắt đầu với 100 điểm.
-2. **Kiểm tra Cú pháp & Kỹ thuật (Trừ 15đ/lỗi hoặc FAIL ngay lập tức):**
-   - **FAIL lập tức (0đ):** Nếu chuỗi JSON trong tài liệu không thể parse hoặc biểu đồ Mermaid bị lỗi cú pháp render.
-   - **Trừ 15đ:** Cấu trúc API không theo chuẩn RESTful.
-3. **Đối chiếu Guideline (Trừ 20đ/lỗi):**
-   - So khớp `document_content` với `guideline_content`.
-   - Trừ điểm nếu: Sai template, thiếu mục bắt buộc (VD: Persona, Out-of-scope), hoặc đặt tên tài liệu sai quy định.
-4. **Kiểm tra Logic & Đối chiếu Yêu cầu gốc (Trừ 30đ/lỗi):**
-   - Đối chiếu `document_content` với `context_content` (nếu có). Trừ điểm nặng nếu tài liệu vẽ ra tính năng "đi lệch" hoặc "bỏ sót" yêu cầu gốc của khách hàng/người dùng.
-   - Kiểm tra tính đầy đủ (Có phủ đủ Sad path, Edge cases chưa?).
-   - Phát hiện các điểm logic nghiệp vụ không khả thi hoặc mâu thuẫn chéo giữa dữ liệu và flow.
-5. **Dọn rác (Trừ 10đ/mục):**
-   - Phát hiện các đoạn văn mô tả dài dòng, lặp từ, không mang lại giá trị cho lập trình viên (Tech Lead).
-6. **Tổng kết Threshold:**
+2. **Ma trận Đánh giá (Evaluation Matrix):** Mattin sẽ đối chiếu tài liệu đầu vào dựa trên các tiêu chí sau.
+
+| Tiêu chí | File Reference (Nguồn tham chiếu) | Dữ liệu đối chiếu | Yêu cầu (Mục tiêu) | Điểm trừ nếu vi phạm |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. Kỹ thuật & Cú pháp** | Bộ guideline gốc của Cấu trúc JSON/Mermaid và API Spec | Mã nguồn / JSON / Mermaid trong `document_content` | - Chuỗi JSON phải parse được.<br>- Biểu đồ Mermaid render thành công.<br>- Thiết kế API chuẩn RESTful. | - Lỗi Parse JSON / Render Mermaid: **FAIL LẬP TỨC (0đ)**<br>- Lỗi cấu trúc API: **-15đ/lỗi** |
+| **2. Chuẩn mực Guideline** | `guideline_content` (từ MCP fetch_guideline) | `guideline_content` so với `document_content` | - Tuân thủ các đầu mục trong guideline. | **-20đ/lỗi vi phạm** |
+| **3. Logic & Yêu cầu gốc** | `context_content` (Requirements, QA log từ MCP) | `context_content` so với `document_content` | - Đánh giá chính xác các tính năng In-scope và Out-of-scope.<br>- Tính năng đề xuất BẮT BUỘC phải giải quyết đúng yêu cầu/QA gốc (Không tự chế thêm scope).<br>- Phủ đầy đủ Sad Path, Edge cases.<br>- Logic luồng dữ liệu không mâu thuẫn. | **-30đ/lỗi vi phạm** (Lỗi rất nặng) |
+| **4. Độ tinh gọn (Clean)** | Tiêu chuẩn Clean Document chung (Kinh nghiệm BA) | Văn phong trong `document_content` | - Hạn chế văn xuôi dài dòng.<br>- Không lặp từ, viết trực diện để Tech Lead đọc hiểu nhanh. | **-10đ/lỗi** |
+
+3. **Tổng kết Threshold:**
    - Điểm **>= 90đ**: Kết luận PASS (APPROVED).
    - Điểm **< 90đ**: Kết luận FAIL (REJECTED).
-7. **Đóng gói Báo cáo (Review Tone):**
+4. **Đóng gói Báo cáo (Review Tone):**
    - Bắt buộc chèn các nhận xét "Đóng vai ác" (Ví dụ: *"BA, bạn định cho Tech Lead đọc đống hổ lốn này sao?"*, *"Rác! Hãy giải trình hoặc xóa nó đi."*).
    - Format lại toàn bộ lỗi theo chuẩn form `review_report.md` (truy xuất qua MCP trước đó) để nạp vào biến `review_comment`.
 

@@ -8,12 +8,12 @@ Kỹ năng cốt lõi của Lina để biến một yêu cầu cấp độ EPIC 
 
 ## Triggers
 - Kích hoạt trong giai đoạn Chi tiết hóa EPIC (Workflow 2).
-- Điều kiện tiên quyết: EPIC đã được hệ thống/PM phê duyệt (nhận được `brief.md` hợp lệ).
+- Điều kiện tiên quyết: EPIC đã được PM phê duyệt (nhận được `brief.md` hợp lệ).
 
 ## Inputs
-| Tên | Kiểu | Bắt buộc | Mô tả |
-|-----|------|----------|-------|
-| epic_brief | Markdown | Có | Tài liệu `brief.md` đã được duyệt |
+| Tên | Kiểu | Bắt buộc | Mô tả                                      |
+|-----|------|----------|--------------------------------------------|
+| epic_brief | Markdown | Có | Tài liệu `brief.md` của EPIC đã được duyệt |
 
 ## Outputs
 | Tên | Kiểu | Mô tả |

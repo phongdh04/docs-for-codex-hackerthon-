@@ -1,10 +1,10 @@
 ---
-name: get-document
+name: get-context
 description: Tải nội dung tài liệu gốc (Epic, Story, Task) từ hệ thống cần được review.
 ---
 
 ## Description
-Kỹ năng giúp Mattin trích xuất nội dung của các tài liệu kỹ thuật (Epic, Story, Spec) đang chờ được kiểm duyệt từ hệ thống thông qua `mattin-mcp`.
+Kỹ năng giúp Mattin truy xuất nội dung của các tài liệu đặc tả (Epic, Story, Spec) đang chờ được kiểm duyệt từ hệ thống thông qua `mattin-mcp`.
 
 ## Triggers
 - Kích hoạt trong quá trình chạy workflow `review-cycle`, tại bước Thu thập dữ liệu.

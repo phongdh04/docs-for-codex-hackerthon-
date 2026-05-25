@@ -22,12 +22,12 @@ flowchart TD
 
 ## Steps
 
-| # | Bước | Actor | Tool/Action | Output |
-| --- | --- | --- | --- | --- |
-| 1 | Truy xuất tài liệu Epic | Lina | `get_epic_doc_by_name` | Nội dung tài liệu EPIC đã được duyệt. |
-| 2 | Phân rã Story & Viết Specs | Lina | `[../skills/write-story-specs/SKILL.md](../skills/write-story-specs/SKILL.md)` | Các file: `user-story`, `concept_note`, `user-flow`, `data-dictionary`, `api-spec`, `db_design`. |
-| 4 | Phối hợp UI/UX | Lina | `request_screen_design` | Gửi yêu cầu thiết kế cho Robin. |
-| 5 | Upload Specs | Lina | `upload_story_doc` | Các tài liệu Spec được đẩy lên hệ thống. |
+| # | Bước                              | Actor | Tool/Action                                                                    | Output                                                                                           |
+|---|-----------------------------------| --- |--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| 1 | Truy xuất tài liệu Epic           | Lina | `get_epic_doc_by_name`                                                         | Nội dung tài liệu EPIC đã được duyệt.                                                            |
+| 2 | Phân rã Story & Viết Specs        | Lina | `[../skills/write-story-specs/SKILL.md](../skills/write-story-specs/SKILL.md)` | Các file: `user-story`, `concept_note`, `user-flow`, `data-dictionary`, `api-spec`, `db_design`. |
+| 4 | Phối hợp UI/UX                    | Lina | `request_screen_design`                                                        | Gửi yêu cầu thiết kế cho Robin.                                                                  |
+| 5 | Upload Specs                      | Lina | `upload_story_doc`                                                             | Các tài liệu Spec được đẩy lên hệ thống.                                                         |
 
 ## Definition of Done
 
