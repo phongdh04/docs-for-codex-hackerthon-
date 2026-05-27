@@ -1,34 +1,31 @@
 ---
 name: fetch-guideline
-description: Trích xuất biểu mẫu (guideline/template) chuẩn từ hệ thống để làm hệ quy chiếu chấm điểm.
+description: Trích xuất biểu mẫu (guideline/template) chuẩn từ hệ thống qua MCP Resources làm căn cứ review.
 ---
 
 ## Description
-Kỹ năng giúp Mattin tự động tìm kiếm và tải về các biểu mẫu chuẩn (guidelines) từ hệ thống thông qua các tool của `mattin-mcp`. Dữ liệu này dùng làm căn cứ cứng (hệ quy chiếu) để soi lỗi tài liệu của BA.
+Đọc trực tiếp nội dung biểu mẫu (guideline/template) chuẩn của hệ thống thông qua địa chỉ URI tĩnh của resource, làm căn cứ cứng (hệ quy chiếu) để soi lỗi và thẩm định tài liệu của BA.
 
 ## Triggers
-- Kích hoạt trong quá trình chạy workflow `review-cycle`, tại bước Thu thập dữ liệu.
-- Điều kiện tiên quyết: Nhận được yêu cầu review một loại tài liệu cụ thể.
+- Kích hoạt trong workflow `review-cycle` khi bắt đầu quá trình thu thập bối cảnh và hệ quy chiếu review.
 
 ## Inputs
-| Tên | Kiểu | Bắt buộc | Mô tả                                 |
-|-----|------|----------|---------------------------------------|
-| doc_level | String | Có | Cấp độ tài liệu (VD: EPIC, STORY)     |
-| doc_name | String | Không | Tên cụ thể của tài liệu cần lấy biểu mẫu |
+| Tên | Kiểu | Bắt buộc | Mô tả |
+|-----|------|----------|-------|
+| uri | String | Có | Địa chỉ URI tĩnh của biểu mẫu cần đọc (VD: `guideline://STORY/api-spec.md`). |
 
 ## Outputs
 | Tên | Kiểu | Mô tả |
 |-----|------|-------|
-| guideline_content | Markdown | Nội dung định dạng chuẩn của biểu mẫu |
+| guideline_content | String/Markdown | Nội dung định dạng chuẩn của biểu mẫu guidelines. |
 
 ## Steps
-1. **Truy xuất nội dung Guideline:**
-   - Sử dụng tool `get_guideline_by_level_and_name` thuộc `mattin-mcp` để lấy biểu mẫu tương ứng với loại tài liệu cần review.
-   - Hoặc các công cụ tìm kiếm guideline khác nếu có.
-2. **Bàn giao biểu mẫu:**
-   - Đọc hiểu biểu mẫu và truyền biến `guideline_content` này cho kỹ năng `review-doc` ở bước tiếp theo.
+1. **Xác thực URI:** Đảm bảo tham số `uri` đầu vào hợp lệ và tuân thủ định dạng `guideline://[LEVEL]/[filename]`.
+2. **Truy cập Resource:** Gọi lệnh `read_resource(uri)` để tải trực tiếp nội dung biểu mẫu chuẩn từ máy chủ.
+3. **Bàn giao:** Nạp nội dung biểu mẫu vào context phục vụ cho quá trình so sánh, review tài liệu của BA.
 
 ## Error Handling
-| Lỗi | Nguyên nhân | Cách xử lý                                                                  |
-|------|------------|-----------------------------------------------------------------------------|
-| Không tìm thấy guideline | Hệ thống chưa định nghĩa form | Đánh dấu FAIL cho quá trình lấy mẫu, bắt BA bổ sung chuẩn trước khi review. |
+| Tình huống Lỗi | Nguyên nhân | Cách xử lý |
+|----------------|-------------|------------|
+| URI không hợp lệ | Viết sai định dạng URI | Thông báo lỗi chi tiết cho User và dừng workflow. |
+| Resource không tồn tại | Hệ thống chưa định nghĩa form chuẩn | Đánh dấu FAIL cho quá trình lấy mẫu, bắt BA bổ sung chuẩn trước khi review. |

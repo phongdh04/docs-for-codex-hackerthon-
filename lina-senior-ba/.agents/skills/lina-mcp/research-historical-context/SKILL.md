@@ -1,41 +1,33 @@
 ---
 name: research-historical-context
-description: Đào bới lịch sử hệ thống để lấy bối cảnh tính năng cũ (EPIC/STORY).
+description: Tìm kiếm bối cảnh và tài liệu Epic/Story cũ theo ngữ nghĩa gần đúng nhất qua mcp tool.
 ---
 
 ## Description
-Kỹ năng tổ hợp (Composite Skill) giúp Lina tự động dò tìm các tính năng (Epic/Story) đã từng làm trong quá khứ có ngữ nghĩa tương đồng với yêu cầu mới, sau đó tự động tải về danh sách tài liệu và đọc chi tiết.
+Sử dụng công cụ tìm kiếm ngữ nghĩa để tra cứu các tài liệu Epic Brief hoặc Story Specs cũ của một dự án cụ thể trên hệ thống, giúp tìm ra các tính năng tương đồng có độ khớp gần nhất.
 
 ## Triggers
-- Kích hoạt ở Bước 1 của quy trình tạo EPIC (`epic-creation.md`), ngay sau khi đọc tài liệu dự án, để thu thập thêm các thông tin nghiệp vụ kế thừa.
+- Kích hoạt khi phân tích yêu cầu mới cần rà soát lịch sử các tính năng hoặc nghiệp vụ tương đồng trong dự án.
 
 ## Inputs
 | Tên | Kiểu | Bắt buộc | Mô tả |
 |-----|------|----------|-------|
-| projectKey | String | Có | Mã hiệu của dự án đang thao tác |
-| text | String | Có | Cụm từ khóa hoặc ngữ cảnh tính năng cần tra cứu |
+| projectKey | String | Có | Mã hiệu duy nhất của dự án trên hệ thống (VD: `PAI`). |
+| query | String | Có | Câu truy vấn tìm kiếm ngữ nghĩa (VD: `Đăng nhập qua JWT`, `gán gói cước môi giới`). |
 
 ## Outputs
 | Tên | Kiểu | Mô tả |
 |-----|------|-------|
-| historical_docs | String/Markdown | Nội dung chi tiết các tài liệu Epic/Story cũ đã lấy được. Trả về rỗng nếu không tìm thấy. |
+| historical_context | String/Markdown | Danh sách tài liệu và nội dung cũ có độ khớp ngữ nghĩa gần nhất để tham chiếu. |
 
 ## Steps
-1. **Tìm kiếm ngữ nghĩa (Semantic Search):**
-   - Sử dụng công cụ `search_semantic` (truyền `projectKey`, `text`).
-2. **Kiểm tra kết quả:**
-   - Nếu KHÔNG CÓ kết quả trả về: Hệ thống chưa có tính năng này. Bỏ qua các bước sau, trả về `historical_docs` rỗng.
-   - Nếu có kết quả (trả về danh sách `epicKey` hoặc `storyKey`), chuyển sang Bước 3.
-3. **Lấy danh sách tài liệu:**
-   - Với mỗi `epicKey` tìm được: Gọi `epic_docs_list` để lấy danh sách tên tài liệu.
-   - Với mỗi `storyKey` tìm được: Gọi `story_docs_list` để lấy danh sách tên tài liệu.
-4. **Đọc chi tiết tài liệu:**
-   - Sử dụng `get_epic_doc_by_name` (truyền `projectKey`, `epicKey`, `name`) để đọc các file của Epic.
-   - Sử dụng `get_story_doc_by_name` (truyền `projectKey`, `storyKey`, `name`) để đọc các file của Story.
-5. **Tổng hợp:** Gom toàn bộ nội dung đọc được trả về biến `historical_docs`.
+1. **Gọi công cụ tìm kiếm:**
+   - Gọi tool `research_document` từ `local-mcp` truyền vào hai tham số: `projectKey` và `query`.
+2. **Trích xuất bối cảnh:**
+   - Thu nhận danh sách tài liệu khớp ngữ nghĩa gần nhất và nạp nội dung của chúng vào biến đầu ra `historical_context`.
 
 ## Error Handling
-| Lỗi | Nguyên nhân | Cách xử lý |
-|------|------------|-------------|
-| Không có kết quả search | Tính năng mới hoàn toàn | Coi như bình thường. Ghi chú là "Chưa có tính năng liên quan" và tiếp tục luồng công việc chính. |
-| Thiếu tham số | Quên `projectKey` hoặc `text` | Nhắc nhở bản thân lấy `projectKey` từ context hiện tại trước khi gọi tool. |
+| Tình huống Lỗi | Nguyên nhân | Cách xử lý |
+|----------------|-------------|------------|
+| Không tìm thấy kết quả | Không có tài liệu nào khớp ngữ nghĩa | Báo cáo User và ghi nhận "Không có bối cảnh lịch sử tương đồng", tiếp tục phân tích từ đầu. |
+| Tool timeout / API lỗi | Sự cố đường truyền hệ thống | Thực hiện Retry gọi tool tối đa 2 lần. Nếu vẫn thất bại, thông báo User và bỏ qua bước đối chiếu lịch sử. |

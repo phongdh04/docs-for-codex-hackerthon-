@@ -1,34 +1,30 @@
 ---
 name: research-project-overview
-description: Tìm và lấy nội dung tài liệu tổng quan của dự án (01-overview.md).
+description: Truy xuất nội dung tài liệu tổng quan dự án (01-overview.md) qua MCP Resources.
 ---
 
 ## Description
-Kỹ năng giúp Mattin lấy được bức tranh toàn cảnh về dự án từ hệ thống thông qua `mattin-mcp` để có ngữ cảnh ban đầu (mục tiêu dự án, luồng nghiệp vụ tổng quát) trước khi đối chiếu và review tài liệu chi tiết của BA.
+Đọc trực tiếp nội dung tài liệu Project Charter (`01-overview.md`) từ máy chủ thông qua địa chỉ URI tĩnh để lấy ngữ cảnh đối chiếu khi review.
 
 ## Triggers
-- Được gọi ở Bước 2 của quy trình `review-cycle.md` khi bắt đầu quá trình thẩm định.
+- Kích hoạt trong workflow `review-cycle` khi bắt đầu quá trình đối chiếu tài liệu với yêu cầu vĩ mô của dự án.
 
 ## Inputs
 | Tên | Kiểu | Bắt buộc | Mô tả |
 |-----|------|----------|-------|
-| projectKey | String | Có | Mã hiệu của dự án đang thao tác |
+| projectKey | String | Có | Mã hiệu dự án (VD: `PAI`). |
 
 ## Outputs
 | Tên | Kiểu | Mô tả |
 |-----|------|-------|
-| overview_content | Markdown | Nội dung chi tiết tài liệu tổng quan dự án |
+| overview_content | String/Markdown | Nội dung chi tiết tài liệu tổng quan dự án. |
 
 ## Steps
-1. **Lấy tài liệu Overview trực tiếp:**
-   - Gọi thẳng tool `get_project_doc_by_name` từ `mattin-mcp` với 2 tham số:
-     - `projectKey`: theo ngữ cảnh hiện tại.
-     - `name`: Tham số cứng là `"01-overview.md"`.
-2. **Đọc tài liệu:**
-   - Trích xuất nội dung thu được vào `overview_content` phục vụ cho việc review.
+1. **Xác định địa chỉ URI:** Thiết lập URI tĩnh: `project-document://[projectKey]/01-overview.md`.
+2. **Truy cập Resource:** Gọi lệnh `read_resource(uri)` để tải tài liệu `01-overview.md` từ server.
+3. **Bàn giao:** Nạp nội dung tài liệu vào context `overview_content`.
 
 ## Error Handling
-| Lỗi | Nguyên nhân | Cách xử lý |
-|------|------------|-------------|
-| File Not Found | Chưa setup dự án hoặc thiếu file `01-overview.md` | Kết luận review FAILED ngay lập tức vì dự án chưa được cấu hình tổng quan chuẩn chỉnh. |
-| Thiếu projectKey | Không xác định được dự án | Hỏi lại User "Review request này thuộc dự án nào?" |
+| Tình huống Lỗi | Nguyên nhân | Cách xử lý |
+|----------------|-------------|------------|
+| Resource không tồn tại | Chưa khởi tạo tài liệu `01-overview.md` cho dự án | Thông báo User và dừng quá trình review. |

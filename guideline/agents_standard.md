@@ -51,7 +51,7 @@ Mô tả mục tiêu chính agent cần đạt được. Liệt kê dạng bulle
 Liệt kê các kỹ năng và tool mà agent được phép sử dụng:
 - **<Skill 1>:** [Tên Skill](.agents/skills/skill-name/SKILL.md) - Mô tả ngắn công dụng.
 - **<Skill 2>:** [Tên Skill](.agents/skills/skill-name/SKILL.md) - Mô tả ngắn công dụng.
-- **MCP Tools (nếu có):** Liệt kê các MCP tool được phép gọi (ví dụ `lina-mcp`, `david-mcp`...).
+- **MCP Tools (nếu có):** Liệt kê các MCP tool được phép gọi.
 
 ## 4. Standard Operating Procedures (SOPs)
 <workflow>

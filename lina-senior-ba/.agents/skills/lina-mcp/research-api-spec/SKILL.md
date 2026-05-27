@@ -1,36 +1,31 @@
 ---
 name: research-api-spec
-description: Tra cứu và lấy cấu trúc thiết kế API cũ để tái sử dụng.
+description: Tìm kiếm đặc tả API theo ngữ nghĩa gần đúng nhất qua mcp tool.
 ---
 
 ## Description
-Kỹ năng tổ hợp (Composite Skill) giúp Lina tìm kiếm tự động các tài liệu thiết kế API Spec trong dự án dựa trên từ khóa nghiệp vụ, sau đó tải về chi tiết Request/Response để làm bối cảnh kỹ thuật khi viết Epic.
+Sử dụng công cụ tìm kiếm ngữ nghĩa để tra cứu các tài liệu API Spec hoặc giao ước API cũ của một dự án cụ thể trên hệ thống, giúp đối chiếu chéo giao ước truyền nhận dữ liệu chính xác và khớp nhất.
 
 ## Triggers
-- Kích hoạt ở Bước 1 của quy trình `epic-creation.md` nhằm thu thập các Endpoint đã có sẵn để tái sử dụng hoặc mở rộng.
+- Kích hoạt khi viết hoặc sửa đổi API Specs của Story cần tham chiếu API cũ của hệ thống.
 
 ## Inputs
 | Tên | Kiểu | Bắt buộc | Mô tả |
 |-----|------|----------|-------|
-| projectKey | String | Có | Mã hiệu của dự án đang thao tác |
-| text | String | Có | Từ khóa nghiệp vụ (Ví dụ: "get user", "checkout") |
+| projectKey | String | Có | Mã hiệu duy nhất của dự án trên hệ thống (VD: `PAI`). |
+| query | String | Có | Câu truy vấn tìm kiếm API (VD: `API đăng nhập`, `Kafka sync user`). |
 
 ## Outputs
 | Tên | Kiểu | Mô tả |
 |-----|------|-------|
-| api_specs | String/Markdown | Cấu trúc chi tiết của các API tìm thấy. Rỗng nếu không có API nào. |
+| api_spec_content | String/Markdown | Đặc tả API và các endpoints khớp ngữ nghĩa nhất. |
 
 ## Steps
-1. **Tra cứu API Spec:**
-   - Gọi tool `search_api_spec` (truyền `projectKey` và `text`).
-2. **Kiểm tra kết quả:**
-   - Nếu không có kết quả: Tính năng chưa có API nào liên quan, trả về rỗng.
-   - Nếu có kết quả (nhận được danh sách API Spec), chuyển sang bước 3.
-3. **Lấy chi tiết API:**
-   - Gọi tool `get_api_spec` với các API lấy được để tải chi tiết cấu trúc Request/Response.
-4. **Tổng hợp:** Gom nội dung vào biến `api_specs`.
+1. **Gọi công cụ tìm kiếm:**
+   - Gọi tool `research_api_spec` từ `local-mcp` truyền vào hai tham số: `projectKey` và `query`.
+2. **Bàn giao:** Nạp kết quả tìm kiếm vào context `api_spec_content`.
 
 ## Error Handling
-| Lỗi | Nguyên nhân | Cách xử lý |
-|------|------------|-------------|
-| Không có API nào liên quan | API chưa được thiết kế | Không báo lỗi, xem như đây là tính năng mới hoàn toàn cần Tech Lead thiết kế thêm API sau này. |
+| Tình huống Lỗi | Nguyên nhân | Cách xử lý |
+|----------------|-------------|------------|
+| Không tìm thấy kết quả | Không có API nào khớp ngữ nghĩa | Báo cáo User, tham chiếu guidelines chung và tiếp tục. |

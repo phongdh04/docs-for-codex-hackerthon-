@@ -1,36 +1,31 @@
 ---
 name: research-api-spec
-description: Tra cứu và lấy cấu trúc thiết kế API cũ để đối chiếu nghiệp vụ.
+description: Tìm kiếm đặc tả API theo ngữ nghĩa gần đúng nhất qua mcp tool để đối chiếu review.
 ---
 
 ## Description
-Kỹ năng tổ hợp (Composite Skill) giúp Mattin tự động tìm kiếm các thiết kế API Spec trong hệ thống theo nghiệp vụ, dùng để thẩm định xem đặc tả API của BA viết trong tài liệu có khớp hoặc tái sử dụng chuẩn xác hay không.
+Sử dụng công cụ tìm kiếm ngữ nghĩa để tra cứu các tài liệu API Spec hoặc giao ước API cũ của một dự án cụ thể trên hệ thống, giúp đối chiếu chéo giao ước truyền nhận dữ liệu chính xác và khớp nhất khi review.
 
 ## Triggers
-- Kích hoạt ở Bước 2 của quy trình `review-cycle.md`.
+- Kích hoạt khi review tài liệu API Specs của Story cần tham chiếu và đối chiếu.
 
 ## Inputs
 | Tên | Kiểu | Bắt buộc | Mô tả |
 |-----|------|----------|-------|
-| projectKey | String | Có | Mã hiệu của dự án đang thao tác |
-| text | String | Có | Từ khóa nghiệp vụ (Ví dụ: "auth", "payment") |
+| projectKey | String | Có | Mã hiệu duy nhất của dự án trên hệ thống (VD: `PAI`). |
+| query | String | Có | Câu truy vấn tìm kiếm API (VD: `API đăng nhập`, `Kafka sync user`). |
 
 ## Outputs
 | Tên | Kiểu | Mô tả |
 |-----|------|-------|
-| api_specs | String/Markdown | Cấu trúc chi tiết các API phục vụ review đối chiếu. |
+| api_spec_content | String/Markdown | Đặc tả API và các endpoints khớp ngữ nghĩa nhất. |
 
 ## Steps
-1. **Tra cứu API Spec:**
-   - Gọi tool `search_api_spec` từ `mattin-mcp` (truyền `projectKey` và `text`).
-2. **Kiểm tra kết quả:**
-   - Nếu không có kết quả: Trả về `api_specs` rỗng.
-   - Nếu có kết quả, chuyển sang bước 3.
-3. **Lấy chi tiết API:**
-   - Gọi tool `get_api_spec` từ `mattin-mcp` để lấy chi tiết Request/Response.
-4. **Tổng hợp:** Gộp nội dung thu được vào `api_specs`.
+1. **Gọi công cụ tìm kiếm:**
+   - Gọi tool `research_api_spec` từ `local-mcp` truyền vào hai tham số: `projectKey` và `query`.
+2. **Bàn giao:** Nạp kết quả tìm kiếm vào context `api_spec_content`.
 
 ## Error Handling
-| Lỗi | Nguyên nhân | Cách xử lý |
-|------|------------|-------------|
-| Không tìm thấy | API mới | Trả về rỗng, ghi nhận không có thiết kế cũ đối chiếu. |
+| Tình huống Lỗi | Nguyên nhân | Cách xử lý |
+|----------------|-------------|------------|
+| Không tìm thấy kết quả | Không có API nào khớp ngữ nghĩa | Báo cáo User, tiếp tục review dựa trên guidelines chung. |
