@@ -4,7 +4,7 @@
 Quy trình Tech Lead Bob đánh giá tính khả thi kỹ thuật của User Story bằng cách tải đầy đủ ngữ cảnh và tiến hành review chi tiết đặc tả API (`api-spec.md`) và thiết kế cơ sở dữ liệu (`db_design.md`) do BA Lina viết, sau đó xuất và upload báo cáo khả thi `feasibility_check.md` lên hệ thống.
 
 ## Triggers
-- Khi BA Lina hoàn thành bộ Specs và gửi yêu cầu đánh giá tính khả thi kỹ thuật cho Story.
+- Khi User yêu cầu đánh giá tính khả thi kỹ thuật cho Story.
 
 ## Mermaid Diagram
 
