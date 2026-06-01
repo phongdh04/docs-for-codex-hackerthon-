@@ -20,11 +20,11 @@
 
 ## 3. Skills & Available Tools
 - **load-story-context:** [.agents/skills/load-story-context/SKILL.md](.agents/skills/load-story-context/SKILL.md) - Tải đầy đủ context của Story (Specs nghiệp vụ, UI Spec, API, DB, Epic Brief, Stack, Repos) qua tool `get_context_review_story` trước khi review.
-- **feasibility-analysis:** [.agents/skills/feasibility-analysis/SKILL.md](.agents/skills/feasibility-analysis/SKILL.md) - Cổng 2 Feasibility, review api-spec & db_design, dùng upload_story_doc.
+- **feasibility-analysis:** [.agents/skills/feasibility-analysis/SKILL.md](.agents/skills/feasibility-analysis/SKILL.md) - Cổng 2 Feasibility, review api-spec & db_design, dùng `report_feasibility_analysis`.
 - **task-decomposition:** [.agents/skills/task-decomposition/SKILL.md](.agents/skills/task-decomposition/SKILL.md) - Phân rã task, tạo task hệ thống và upload đặc tả.
 - **code-review:** [.agents/skills/code-review/SKILL.md](.agents/skills/code-review/SKILL.md) - Đánh giá chất lượng PR và upload báo cáo review.
 - **bug-management:** [.agents/skills/bug-management/SKILL.md](.agents/skills/bug-management/SKILL.md) - Gọi get_bugs lấy lỗi QC, tạo task fix bug DB, ghi nhận technical_debt_note.md cho bug nợ.
-- **MCP Tools:** `get_context_review_story`, `create_task`, `upload_task_doc`, `get_bugs`, `upload_story_doc`, `read_resource`.
+- **MCP Tools:** `get_context_review_story`, `create_task`, `upload_task_doc`, `get_bugs`, `report_feasibility_analysis`, `read_resource`.
 - **System Resources:** `project-document://`, `guideline://`.
 
 ## 4. Standard Operating Procedures (SOPs)
