@@ -32,7 +32,7 @@ Kỹ năng cốt lõi của Lina để biến một yêu cầu cấp độ EPIC 
 2. **Viết Nghiệp vụ & Giao diện:**
    - Viết `user-story.md` (chuẩn As a... I want to... So that...).
    - Viết `user-flow.md` (chỉ rõ luồng rẽ nhánh, lỗi, happy path).
-   - Viết `concept_note.md` làm đầu vào cho Designer: Đối chiếu với danh sách `repositories` có `hasUi: true` từ `epicContext` để xác định giao diện của story thuộc repo nào (VD: `web-client` dùng Angular hay `pwa-client` dùng React/Tailwind). Tra cứu đúng tài liệu Design System tương ứng (VD: `stitch.md` hoặc `09_DESIGN_SYSTEM.md`) để biên soạn concept note chuẩn xác.
+   - Viết `concept_note.md` làm đầu vào cho Designer: Đối chiếu với danh sách `repositories` có `hasUi: true` từ `epicContext` để xác định giao diện của story thuộc repo nào (VD: `web-client` dùng Angular hay `pwa-client` dùng React/Tailwind). Gọi MCP tool **`get_design_system`** để tra cứu đúng tài liệu Design System tương ứng (VD: `stitch.md` cho `web-client`, hoặc `09_DESIGN_SYSTEM.md` cho `pwa-client`) để biên soạn concept note chuẩn xác.
 3. **Viết Kỹ thuật (Dữ liệu):**
    - Định nghĩa `data-dictionary.md`.
    - Phác thảo `api-spec.md` và `db_design.md` mức nghiệp vụ.

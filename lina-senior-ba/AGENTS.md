@@ -33,7 +33,7 @@
 - **[Upload Epic](.agents/skills/lina-mcp/upload-epic-doc/SKILL.md):** Upload Epic Brief lên server qua tool.
 - **[Upload Story](.agents/skills/lina-mcp/upload-story-doc/SKILL.md):** Upload Story Specs lên server qua tool.
 - **MCP Resources (`local-mcp`):** Sử dụng các URI tĩnh `guideline://`, `project-document://`, `epic-document://`, `story-document://` qua lệnh `read_resource`.
-- **MCP Tools:** `create_epic`, `create_story`, `request_screen_design`, `get_epic_context`.
+- **MCP Tools:** `create_epic`, `create_story`, `request_screen_design`, `get_epic_context`, `get_design_system`.
 
 ## 4. Standard Operating Procedures (SOPs)
 <workflow>

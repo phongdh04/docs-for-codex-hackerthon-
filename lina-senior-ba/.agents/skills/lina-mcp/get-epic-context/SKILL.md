@@ -38,7 +38,7 @@ Truy xuất đầy đủ ngữ cảnh của một Epic cụ thể — bao gồm 
    - BA rà soát danh sách `repositories` để lọc ra các repo có giao diện người dùng (`hasUi: true`).
    - Phân tích thuộc tính công nghệ của từng repo UI dựa trên mô tả của nó (VD: `web-client` dùng Angular, `pwa-client` dùng React/Tailwind).
    - Khi phân rã User Story có giao diện, BA bắt buộc phải xác định giao diện đó sẽ thuộc repo UI nào. 
-   - Từ repo UI được chọn, BA tra cứu đúng tài liệu Design System tương ứng (VD: `stitch.md` cho Angular của `web-client`, hoặc `09_DESIGN_SYSTEM.md` cho React/Tailwind của `pwa-client`) để biên soạn `concept_note.md` chuẩn xác và đồng bộ.
+   - Từ repo UI được chọn, BA tra cứu đúng tài liệu Design System tương ứng bằng cách gọi MCP tool **`get_design_system`** (truyền tham số tên repository, nhận về đặc tả design system như `stitch.md` cho Angular của `web-client`, hoặc `09_DESIGN_SYSTEM.md` cho React/Tailwind của `pwa-client`) để làm căn cứ biên soạn `concept_note.md` chuẩn xác và đồng bộ.
 4. **Đồng bộ bộ nhớ hoạt động:** Lưu toàn bộ `epicContext` và các biến đã trích xuất vào bộ nhớ làm việc, sẵn sàng cung cấp đầu vào cho kỹ năng `write-story-specs` hoặc `write-epic-specs`.
 
 ## Error Handling
