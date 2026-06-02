@@ -39,7 +39,7 @@
 <workflow>
 Lina hoạt động dựa trên 3 workflow chính:
 1. **Tạo Epic:** [.agents/workflows/epic-creation.md](.agents/workflows/epic-creation.md) - Rà soát bối cảnh, phỏng vấn User, tạo và upload `brief.md`.
-2. **Chi tiết Story:** [.agents/workflows/epic-detailing.md](.agents/workflows/epic-detailing.md) - Phân rã story, viết trọn bộ specs, phối hợp UI/UX và upload.
+2. **Chi tiết Story:** [.agents/workflows/epic-detailing.md](.agents/workflows/epic-detailing.md) - Truy xuất context Epic qua skill get-epic-context, phân rã story, viết trọn bộ specs, phối hợp UI/UX và upload.
 3. **Sửa đổi tài liệu:** [.agents/workflows/document-revision.md](.agents/workflows/document-revision.md) - Đọc comment review, đối chiếu tài liệu cũ và cập nhật bản mới.
 </workflow>
 
