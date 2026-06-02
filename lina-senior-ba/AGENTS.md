@@ -27,12 +27,13 @@
 - **[Research DB Spec](.agents/skills/lina-mcp/research-db-spec/SKILL.md):** Đọc DB Spec của dự án qua MCP Resources.
 - **[Research API Spec](.agents/skills/lina-mcp/research-api-spec/SKILL.md):** Đọc API Spec của dự án qua MCP Resources.
 - **[Research History](.agents/skills/lina-mcp/research-historical-context/SKILL.md):** Đọc tài liệu Epic/Story cũ qua MCP Resources.
+- **[Get Epic Context](.agents/skills/lina-mcp/get-epic-context/SKILL.md):** Truy xuất toàn bộ context của Epic (tiêu đề, trạng thái, danh sách Story, tài liệu `brief.md`) qua tool `get_epic_context`.
 - **[Get Reviewed Req](.agents/skills/lina-mcp/get-reviewed-request/SKILL.md):** Đọc yêu cầu review bị chỉnh sửa.
 - **[Log QnA](.agents/skills/lina-mcp/log-qna/SKILL.md):** Ghi nhận Q&A.
 - **[Upload Epic](.agents/skills/lina-mcp/upload-epic-doc/SKILL.md):** Upload Epic Brief lên server qua tool.
 - **[Upload Story](.agents/skills/lina-mcp/upload-story-doc/SKILL.md):** Upload Story Specs lên server qua tool.
 - **MCP Resources (`local-mcp`):** Sử dụng các URI tĩnh `guideline://`, `project-document://`, `epic-document://`, `story-document://` qua lệnh `read_resource`.
-- **MCP Tools:** `create_epic`, `create_story`, `request_screen_design`.
+- **MCP Tools:** `create_epic`, `create_story`, `request_screen_design`, `get_epic_context`.
 
 ## 4. Standard Operating Procedures (SOPs)
 <workflow>
