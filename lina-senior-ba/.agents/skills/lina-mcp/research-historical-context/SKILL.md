@@ -21,10 +21,13 @@ Sử dụng công cụ tìm kiếm ngữ nghĩa để tra cứu các tài liệu
 | historical_context | String/Markdown | Danh sách tài liệu và nội dung cũ có độ khớp ngữ nghĩa gần nhất để tham chiếu. |
 
 ## Steps
-1. **Gọi công cụ tìm kiếm:**
-   - Gọi tool `research_document` từ `local-mcp` truyền vào hai tham số: `projectKey` và `query`.
-2. **Trích xuất bối cảnh:**
-   - Thu nhận danh sách tài liệu khớp ngữ nghĩa gần nhất và nạp nội dung của chúng vào biến đầu ra `historical_context`.
+1. **Tìm kiếm ngữ nghĩa (Semantic Search):**
+   - Gọi MCP tool **`research_document`** từ `local-mcp` truyền vào hai tham số: `projectKey` và `query` để lấy danh sách các Epic/Story ID tương đồng có độ khớp ngữ nghĩa gần nhất.
+2. **Đọc nội dung chi tiết (Read Details):**
+   - Duyệt qua danh sách tài liệu trả về từ bước 1.
+   - Với mỗi tài liệu (Epic hoặc Story), sử dụng lệnh **`read_resource`** để đọc trực tiếp nội dung chi tiết thông qua các MCP Resources tĩnh tương ứng (`epic-document://[epicKey]` hoặc `story-document://[storyKey]`).
+3. **Trích xuất bối cảnh:**
+   - Tổng hợp nội dung chi tiết thu được và nạp vào biến đầu ra `historical_context`.
 
 ## Error Handling
 | Tình huống Lỗi | Nguyên nhân | Cách xử lý |

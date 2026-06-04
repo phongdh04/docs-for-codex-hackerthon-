@@ -19,11 +19,18 @@ Kỹ năng giúp Lina tổng hợp và cấu trúc toàn bộ câu hỏi (từ b
 ## Outputs
 | Tên | Kiểu | Mô tả |
 |-----|------|-------|
+| impact_matrix | Markdown | Bảng Ma trận đánh giá tác động 4 chiều (N nghiệp vụ, UI/UX, Dịch vụ & Dữ liệu, Quyền hạn) |
 | batched_qa_list | Markdown | Danh sách câu hỏi tổng hợp, phân nhóm rõ ràng |
 
 ## Steps
-1. **Quét toàn diện (Full Scan):**
+1. **Quét toàn diện & Đánh giá tác động (Full Scan & Impact Matrix):**
    - Rà soát các lỗ hổng thông tin, mâu thuẫn từ `raw_request` và các ngoại lệ.
+   - Thực hiện Đánh giá tác động (Impact Matrix) 4 chiều để xác định tính năng mới/nâng cấp này sẽ tác động đến những gì:
+     - *Tác động Nghiệp vụ (Business Impact):* Ảnh hưởng đến các luồng nghiệp vụ hiện tại hoặc làm thay đổi các Ràng buộc nghiệp vụ toàn cục (Global Rules) không?
+     - *Tác động Giao diện (UI/UX Impact):* Cần chỉnh sửa/thêm màn hình nào trên client (`web-client` Angular hoặc `pwa-client` React)?
+     - *Tác động Dịch vụ & Dữ liệu (Service & Data Impact):* Repository nào bị ảnh hưởng (`product-service`, `background-service`, `ai-mcp-server`...)? Có làm thay đổi Database Schema hay API Endpoints không?
+     - *Tác động Quyền hạn (Actor & Permission Impact):* Persona nào bị ảnh hưởng? Có thay đổi phân quyền (RBAC) không?
+   - Kết quả phân tích được lập thành một bảng Markdown `impact_matrix`.
 2. **Gom nhóm câu hỏi (Categorization):**
    - **Nhóm 1 - Nghiệp vụ (Business):** Các quy tắc, điều kiện logic, mục tiêu tính năng.
    - **Nhóm 2 - Trải nghiệm (UX/UI):** Luồng người dùng, thông báo, giao diện.
