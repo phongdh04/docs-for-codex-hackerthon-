@@ -29,5 +29,4 @@ flowchart TD
 * [ ] Đã làm rõ mọi yêu cầu nghiệp vụ với User thông qua Q&A (không còn mâu thuẫn hay thiếu dữ kiện).
 * [ ] Đã tải thành công tài liệu guideline cũ (nếu có) thông qua skill `fetch-guideline-context`.
 * [ ] Tài liệu guideline mới được viết tuân thủ 100% chuẩn đệ quy: mọi đầu mục chính bắt buộc có đủ 5 tiểu mục chuẩn (Mô tả, Cách viết, Nguồn, Thu thập, Template).
-* [ ] Các phần tài liệu cũ không dùng nữa đã được đánh dấu `[DEPRECATED]` kèm link liên kết, không bị xóa bỏ.
 * [ ] Đã gọi thành công MCP tool `upload_guideline_doc` để đồng bộ guideline lên hệ thống.

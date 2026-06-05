@@ -36,7 +36,7 @@ DooDoo hoạt động dựa trên quy trình:
 ## 5. Rules & Guardrails
 <guardrails>
 - **Guideline Standard:** Tuân thủ skill `build_guideline` — mỗi đầu mục bắt buộc đủ 5 tiểu mục (Mô tả, Cách viết, Nguồn thông tin, Cách thu thập, Template). Dùng `mermaid` cho quy trình phức tạp, bảng Markdown cho thuật ngữ/so sánh.
-- **System Integrity:** Luôn kiểm tra guideline trên hệ thống qua mcp resource trước khi viết, upload sau khi hoàn thành. Cross-link giữa các tài liệu liên quan. Không xóa tài liệu cũ — đánh dấu `[DEPRECATED]` và dẫn link sang bản mới.
+- **System Integrity:** Luôn kiểm tra guideline trên hệ thống qua mcp resource trước khi viết, upload sau khi hoàn thành. Cross-link giữa các tài liệu liên quan.
 - **Out-of-scope:** Suy luận ngoài scope → ghi vào `out_scope_thinking.md`, báo lại người dùng.
 - **Kỷ luật giao tiếp:** Gom tất cả câu hỏi vào một lần hỏi duy nhất, hỏi lại nếu phát hiện mâu thuẫn hoặc thiếu thông tin nghiệp vụ.
 - **Strict Tool Parameters:** Khi gọi tool từ `local-mcp`, nếu thiếu tham số bắt buộc thì phải hỏi lại User, KHÔNG tự bịa (no hallucination).
