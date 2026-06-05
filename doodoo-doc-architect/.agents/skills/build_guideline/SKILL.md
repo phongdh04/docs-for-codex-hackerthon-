@@ -3,69 +3,45 @@ name: build_guideline
 description: Xây dựng tài liệu guideline theo chuẩn 5 tiểu mục đệ quy (Recursive Meta-Guideline Standard).
 ---
 
-# 1. Hướng dẫn sử dụng Skill
+## Description
+Kỹ năng giúp DooDoo xây dựng, tạo mới hoặc bổ sung một tài liệu guideline trong hệ thống. Kỹ năng này áp dụng nghiêm ngặt tiêu chuẩn đệ quy: mỗi phần của guideline được tạo ra bắt buộc phải có đủ 5 tiểu mục (Mô tả, Cách viết, Nguồn thông tin, Cách thu thập, Format gợi ý) để AI và Con người dễ dàng tuân thủ.
 
-Kích hoạt skill này khi cần viết, tạo mới hoặc bổ sung một tài liệu guideline trong hệ thống. Skill này đảm bảo rằng mỗi phần của guideline được tạo ra sẽ trở thành "Executable Logic" có tính nhất quán cao, cung cấp ngữ cảnh đầy đủ cho AI và Con người.
+## Triggers
+- Kích hoạt tại Bước 3 của quy trình `build-guideline-flow.md`.
+- Điều kiện tiên quyết: Đã làm rõ yêu cầu nghiệp vụ qua Q&A và lấy context guideline cũ (nếu có).
 
-# 2. Quy trình thực hiện (Cách viết)
+## Inputs
+| Tên | Kiểu dữ liệu | Bắt buộc | Mô tả chi tiết |
+|-----|--------------|----------|----------------|
+| name | String | Có | Tên tài liệu guideline cần xây dựng (VD: `01-overview.md`). |
+| existing_guideline_content | Markdown | Không | Nội dung guideline cũ đã có trên hệ thống (dùng khi cập nhật). |
+| requirements | String | Có | Các thông tin nghiệp vụ/yêu cầu đã chốt qua bước Q&A. |
 
-Khi sử dụng skill này, bạn cần tuân thủ cấu trúc sau:
+## Outputs
+| Tên | Kiểu dữ liệu | Mô tả chi tiết |
+|-----|--------------|----------------|
+| guideline_content | Markdown | Nội dung guideline hoàn chỉnh đã được định dạng và cấu trúc theo đúng chuẩn 5 tiểu mục. |
 
-1. **Định hình các đầu mục chính**: Dựa vào thông tin thu thập được từ bước Q&A và rà soát hệ thống, liệt kê ra danh sách các đầu mục cần thiết cho guideline (đánh số 1, 2, 3... n).
-2. **Triển khai 5 tiểu mục bắt buộc**: Trong TỪNG ĐẦU MỤC đã liệt kê ở trên, bạn bắt buộc phải tạo 5 tiểu mục con sau:
-   - **Mô tả**: Trình bày rõ ràng mục này là gì, tại sao nó lại quan trọng trong ngữ cảnh chung.
-   - **Cách viết**: Các bước hướng dẫn cụ thể để thực hiện công việc trong mục này. (Chỉ rõ "Làm như thế nào").
-   - **Nguồn thông tin**: Định nghĩa rõ thông tin đầu vào cần lấy từ đâu (tên file, cơ sở dữ liệu, api, con người).
-   - **Cách thu thập**: Phương pháp, công cụ hoặc câu lệnh để lấy thông tin từ các nguồn trên.
-   - **Format gợi ý / Template áp dụng**: Đưa ra một khung mẫu dạng Markdown Code Block cụ thể để người hoặc AI khác có thể dễ dàng copy và điền thông tin vào.
+## Steps
+1. **Thiết lập Khung cấu trúc:**
+   - Liệt kê các đầu mục lớn cần thiết dựa theo yêu cầu nghiệp vụ.
+   - Nếu là cập nhật, xác định phần delta thay đổi để chèn vào mà không làm hỏng cấu trúc cũ.
+2. **Biên soạn 5 tiểu mục bắt buộc cho từng đầu mục:**
+   - **Mô tả:** Giải thích rõ mục này là gì, tại sao quan trọng.
+   - **Cách viết:** Hướng dẫn chi tiết từng bước cách thực hiện.
+   - **Nguồn thông tin:** Chỉ rõ dữ liệu đầu vào lấy từ đâu (file, api, DB...).
+   - **Cách thu thập:** Phương pháp, câu lệnh cụ thể để lấy thông tin.
+   - **Format gợi ý / Template áp dụng:** Khung mẫu định dạng Markdown Code Block cụ thể.
+3. **Áp dụng định dạng chuẩn:**
+   - Đánh số thứ tự cho các đầu mục chính.
+   - Sử dụng định dạng Bold/Heading phân cấp rõ ràng.
+   - Sử dụng sơ đồ `mermaid` cho các quy trình phức tạp và bảng Markdown cho so sánh.
+4. **Bảo toàn thông tin cũ:**
+   - Đối với tài liệu cập nhật, nếu có phần cũ không dùng nữa, đánh dấu `[DEPRECATED]` kèm link trỏ sang phần mới, tuyệt đối không âm thầm xóa bỏ.
+5. **Bàn giao kết quả:** Trả về chuỗi Markdown `guideline_content` hoàn chỉnh.
 
-# 3. Yêu cầu đầu ra (Format gợi ý)
-
-Khi bạn viết xong guideline, cấu trúc tài liệu bắt buộc phải trông giống như mẫu dưới đây:
-
-```markdown
-# [Tên Guideline]
-
-## 1. [Tên đầu mục 1]
-
-### Mô tả
-[Giải thích...]
-
-### Cách viết
-[Hướng dẫn từng bước...]
-
-### Nguồn thông tin
-[Dữ liệu lấy từ đâu...]
-
-### Cách thu thập
-[Phương pháp lấy dữ liệu...]
-
-### Format gợi ý / Template áp dụng
-\`\`\`
-[Template...]
-\`\`\`
-
-## 2. [Tên đầu mục 2]
-...
-(lặp lại cấu trúc 5 tiểu mục cho mọi đầu mục)
-```
-
-# 4. Quy tắc bắt buộc
-
-## RECURSIVE META-GUIDELINE STANDARD
-Mỗi tài liệu guideline phải bao gồm các đầu mục đánh số từ 1 đến n. TỪNG ĐẦU MỤC bắt buộc có 5 tiểu mục:
-1. **Mô tả:** Giải thích rõ mục này là gì, tại sao quan trọng.
-2. **Cách viết:** Hướng dẫn chi tiết các bước.
-3. **Nguồn thông tin:** Nguồn dữ liệu/thông tin cần thiết.
-4. **Cách thu thập:** Phương pháp cụ thể để lấy thông tin.
-5. **Format gợi ý / Template áp dụng:** Khung mẫu (Markdown code block) để copy/điền.
-
-## HIERARCHY & FORMATTING
-- Số thứ tự lớn (1., 2., 3...) cho đầu mục chính.
-- Định dạng Bold hoặc Heading nhỏ hơn cho 5 tiểu mục chuẩn để phân cấp.
-- Sử dụng `mermaid` (flowchart) cho quy trình phức tạp.
-- Sử dụng bảng Markdown cho thuật ngữ/so sánh.
-
-## Lưu ý khác
-- Không bao giờ được phép thiếu 1 trong 5 tiểu mục chuẩn trong bất cứ đầu mục chính nào.
-- Nội dung ở mục **Format gợi ý** phải có tính khả thi và rõ ràng, chỉ tập trung vào "Template Result".
+## Error Handling
+| Tình huống Lỗi | Nguyên nhân | Cách xử lý (Self-healing) |
+|----------------|-------------|---------------------------|
+| Thiếu 1 trong 5 tiểu mục bắt buộc | Sơ suất khi biên soạn | Rà soát lại tài liệu trước khi trả về, bổ sung ngay các mục trống và điền ghi chú "Chờ cập nhật" nếu thiếu thông tin, không được bỏ trống cấu trúc. |
+| Yêu cầu nghiệp vụ mâu thuẫn | Đầu vào requirements chưa đồng nhất | Quay lại bước Q&A để hỏi lại User làm rõ điểm mâu thuẫn nghiệp vụ. |
