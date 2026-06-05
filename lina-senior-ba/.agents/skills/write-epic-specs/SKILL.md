@@ -14,12 +14,13 @@ Kỹ năng giúp Lina viết tài liệu `brief.md` cho một EPIC dựa trên c
 | Tên | Kiểu | Bắt buộc | Mô tả |
 |-----|------|----------|-------|
 | requirement_info | Text | Có | Nội dung Q&A đã được làm rõ sau bước lấy yêu cầu. |
+| approved_scope_table | Markdown Table | Có | Bảng danh sách Epic/Story sơ bộ đã được User phê duyệt ở bước trước. |
 | semantic_search_result | Text | Không | Thông tin EPIC/Story cũ nếu có tái sử dụng |
 
 ## Outputs
 | Tên | Kiểu | Mô tả |
 |-----|------|-------|
-| epic_brief | Markdown | File `brief.md` hoàn chỉnh tuân thủ định dạng guideline |
+| epic_brief | Markdown | File `brief.md` hoàn chỉnh chứa bảng danh sách Epic/Story đã duyệt và tuân thủ định dạng guideline |
 
 ## Steps
 1. **Phân tích thông tin đầu vào:**
@@ -27,7 +28,7 @@ Kỹ năng giúp Lina viết tài liệu `brief.md` cho một EPIC dựa trên c
    - Xác định rõ mục tiêu cốt lõi của EPIC (Business Goal).
 2. **Soạn thảo Nội dung:**
    - Viết phần giới thiệu chung.
-   - Phác thảo danh sách các User Story dự kiến nằm trong EPIC.
+   - Nhúng trực tiếp bảng danh sách các Epic/Story đã được phê duyệt (`approved_scope_table`) vào tài liệu làm phần cốt lõi của tài liệu Epic Brief (`brief.md`).
    - Xác định quyền hạn và người dùng mục tiêu (Persona).
 3. **Đóng gói file (Tuân thủ Guideline):**
    - **BẮT BUỘC:** Tham chiếu và áp dụng nghiêm ngặt định dạng Markdown chuẩn theo các biểu mẫu (template/guideline) của dự án trên hệ thống. 

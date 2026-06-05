@@ -22,9 +22,8 @@ flowchart TD
   CheckSpecs -->|Không| RefineSpecs[Chỉnh sửa & Hoàn thiện Specs]
   RefineSpecs --> WriteSpecs
   
-  CheckSpecs -->|Có| RequestDesign[Tool: request_screen_design]
-  RequestDesign --> UploadStory[Skill: upload-story-doc]
-  UploadStory --> End([Kết thúc quy trình])
+  CheckSpecs -->|Có| SaveStory[Skill: save-story-local]
+  SaveStory --> End([Kết thúc quy trình])
 ```
 
 ## Steps
@@ -33,13 +32,11 @@ flowchart TD
 |---|-----------------------------------| ----- |--------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
 | 1 | Truy xuất tài liệu Epic           | Lina  | `[../skills/lina-mcp/get-epic-context/SKILL.md](../skills/lina-mcp/get-epic-context/SKILL.md)`   | Bối cảnh Epic (epicTitle, storyList, epicDocuments, epicContext).                                |
 | 2 | Phân rã Story & Viết Specs        | Lina  | `[../skills/write-story-specs/SKILL.md](../skills/write-story-specs/SKILL.md)`                   | Các file Spec: `user-story`, `concept_note`, `user-flow`, `data-dictionary`, `api-spec`, `db_design`. |
-| 3 | Phối hợp UI/UX                    | Lina  | `request_screen_design` (MCP Tool)                                                               | Gửi yêu cầu thiết kế màn hình thành công cho Robin.                                             |
-| 4 | Upload Specs                      | Lina  | `[../skills/lina-mcp/upload-story-doc/SKILL.md](../skills/lina-mcp/upload-story-doc/SKILL.md)`   | Các tài liệu Spec được đẩy lên hệ thống lưu trữ tập trung.                                       |
+| 3 | Lưu Story Specs cục bộ            | Lina  | `[../skills/save-story-local/SKILL.md](../skills/save-story-local/SKILL.md)`                     | Toàn bộ 6 file Spec được lưu trữ thành công trong workspace.                                     |
 
 ## Definition of Done
 
 * [ ] Đã kéo thành công bối cảnh EPIC bằng skill `get-epic-context`.
 * [ ] Danh sách User Story được phân rã hợp lý từ bối cảnh EPIC đã lấy.
 * [ ] Đã hoàn thiện đủ 6 file Spec (`user-story`, `concept_note`, `user-flow`, `data-dictionary`, `api-spec`, `db_design`) với dữ liệu đồng bộ và nhất quán.
-* [ ] Yêu cầu thiết kế màn hình đã được gửi tới Robin thành công thông qua `request_screen_design`.
-* [ ] Toàn bộ các file Spec của Story đã được upload thành công lên hệ thống thông qua skill `upload-story-doc`.
+* [ ] Toàn bộ các file Spec của Story đã được lưu trữ thành công cục bộ trong workspace qua skill `save-story-local`.

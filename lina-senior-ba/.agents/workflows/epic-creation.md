@@ -1,47 +1,53 @@
-# Workflow: Khởi tạo EPIC chờ duyệt
+# Workflow: Khởi tạo EPIC & Thiết kế Giải pháp Nghiệp vụ
 
 ## Description
-Quy trình này hướng dẫn Lina làm rõ yêu cầu thô, thu thập ngữ cảnh kỹ thuật (DB/API), lọc bỏ các yêu cầu Outscope, thực hiện vòng lặp Q&A và tạo/cập nhật các EPIC trên hệ thống.
+Quy trình này hướng dẫn BA Lina tiếp nhận yêu cầu thô mới, nghiên cứu bối cảnh lịch sử, liên tục Q&A để tổng hợp yêu cầu thực tế, đề xuất các phương án giải pháp nghiệp vụ, lập bảng danh sách Epic/Story sơ bộ được User phê duyệt trước khi viết và upload tài liệu Epic Brief chính thức.
 
 ## Triggers
-- **Manual Command (Thủ công):** Khi người dùng (khách hàng/PM) gửi một yêu cầu thô về dự án.
+- **Manual Command (Thủ công):** Khi người dùng (khách hàng/PM) gửi một yêu cầu thô mới về dự án.
    > *"Tôi có một yêu cầu mới cho dự án XYZ..."*
 
 ## Mermaid Diagram
 
 ```mermaid
 flowchart TD
-  Start([Nhận yêu cầu thô]) --> B1[B1. Tiếp nhận & Thu thập ngữ cảnh]
-  B1 --> B2[B2. Phân tích & Đánh giá Outscope]
-  B2 --> CheckScope{Trong phạm vi?}
-  CheckScope -->|Outscope| ReportOutscope[Báo cáo Outscope & Đề xuất]
-  ReportOutscope --> EndOutscope([Kết thúc])
-  CheckScope -->|In-scope| B3[B3. Gom nhóm câu hỏi]
-  B3 --> B4[B4. Nhận phản hồi Q&A]
-  B4 --> CheckClear{Clear chưa?}
-  CheckClear -->|Chưa clear < 3 lần| B3
-  CheckClear -->|Đã clear / Quá 3 lần| LogQA[Log Q&A]
-  LogQA --> B5[B5. Quyết định & Tạo Epic Brief]
-  B5 --> B6[B6. Upload EPIC]
-  B6 --> End([Kết thúc quy trình])
+  Start([1. Nhận yêu cầu thô]) --> B2[2. Phân tích, nghiên cứu & Tạo câu hỏi Q&A]
+  B2 --> B3[3. Tổng hợp yêu cầu thực tế & Gửi User chốt]
+  B3 --> CheckReq{User chốt yêu cầu?}
+  CheckReq -->|Chưa chốt| B2
+  
+  CheckReq -->|Đã chốt| B4[4. Đề xuất giải pháp & Gửi User chốt]
+  B4 --> CheckSol{User chốt giải pháp?}
+  CheckSol -->|Chưa chốt| B2
+  
+  CheckSol -->|Đã chốt| B5[5. Lập bảng danh sách Epic/Story sơ bộ]
+  B5 --> B6[6. Chờ User duyệt & nhận comment]
+  CheckComment{Có comment?}
+  B6 --> CheckComment
+  CheckComment -->|Có| B5
+  
+  CheckComment -->|Không/Đã duyệt| B7[7. Viết tài liệu Brief]
+  B7 --> B8[8. Lưu brief.md cục bộ]
+  B8 --> End([Kết thúc quy trình])
 ```
 
 ## Steps
 
-| # | Bước | Actor | Tool/Action | Output |
-|---|------|-------|-------------|--------|
-| 1 | Tiếp nhận & Thu thập ngữ cảnh | Lina | Gọi liên hoàn các kỹ năng: `[../skills/lina-mcp/research-project-overview/SKILL.md](../skills/lina-mcp/research-project-overview/SKILL.md)` $\rightarrow` `[../skills/lina-mcp/research-historical-context/SKILL.md](../skills/lina-mcp/research-historical-context/SKILL.md)` $\rightarrow` `[../skills/lina-mcp/research-db-spec/SKILL.md](../skills/lina-mcp/research-db-spec/SKILL.md)` $\rightarrow` `[../skills/lina-mcp/research-api-spec/SKILL.md](../skills/lina-mcp/research-api-spec/SKILL.md)` | Ngữ cảnh toàn diện về hệ thống, DB, API. |
-| 2 | Phân tích & Đánh giá Outscope | Lina | `[../skills/requirement-clarification/SKILL.md](../skills/requirement-clarification/SKILL.md)` | Khung phân tích 5W1H & Edge Cases. Nếu tính năng nằm ngoài phạm vi $\rightarrow$ Chuyển tới báo cáo Outscope và dừng. |
-| 3 | Đánh giá tác động & Gom câu hỏi | Lina | `[../skills/requirement-analysis/SKILL.md](../skills/requirement-analysis/SKILL.md)` | Bảng Ma trận Đánh giá tác động 4 chiều (`impact_matrix`) và Danh sách câu hỏi tổng hợp (`batched_qa_list`) phân nhóm rõ ràng phục vụ Q&A. |
-| 4 | Xử lý & Log câu trả lời | Lina | Nhận phản hồi người dùng. Nếu chưa rõ $\rightarrow$ Quay lại B3 (Max 3 lần). Khi clear $\rightarrow$ Gọi `[../skills/lina-mcp/log-qna/SKILL.md](../skills/lina-mcp/log-qna/SKILL.md)`. | Log thông tin Q&A trên hệ thống. |
-| 5 | Tạo/Cập nhật Epic Brief | Lina | `[../skills/write-epic-specs/SKILL.md](../skills/write-epic-specs/SKILL.md)` | Tài liệu Epic Brief hoàn chỉnh (bao gồm bảng Impact Matrix và quyết định tạo mới hay cập nhật dựa trên kết quả rà soát ở B1). |
-| 6 | Upload EPIC | Lina | Gọi `[../skills/lina-mcp/upload-epic-doc/SKILL.md](../skills/lina-mcp/upload-epic-doc/SKILL.md)` | Tài liệu EPIC được đẩy lên hệ thống. |
+| # | Bước thực hiện | Actor | Tool/Skill mã hóa | Kết quả đầu ra (Output) |
+|---|----------------|-------|--------------------|-------------------------|
+| 1 | Tiếp nhận yêu cầu thô | Lina | Nhập liệu yêu cầu | Ghi nhận yêu cầu ban đầu. |
+| 2 | Phân tích, nghiên cứu & đặt câu hỏi Q&A | Lina | - `[../skills/requirement-clarification/SKILL.md](../skills/requirement-clarification/SKILL.md)`<br>- `[../skills/lina-mcp/research-historical-context/SKILL.md](../skills/lina-mcp/research-historical-context/SKILL.md)`<br>- `[../skills/requirement-analysis/SKILL.md](../skills/requirement-analysis/SKILL.md)` | Bảng Ma trận Đánh giá tác động 4 chiều (`impact_matrix`) và Bộ câu hỏi Q&A làm rõ bối cảnh (`batched_qa_list`). |
+| 3 | Tổng hợp yêu cầu thực tế & chốt | Lina | Tương tác trực tiếp với User | Tổng hợp yêu cầu thực tế đã được User chốt duyệt. Nếu chưa chốt, quay lại Bước 2 để Q&A tiếp. |
+| 4 | Đề xuất giải pháp & chốt | Lina | `[../skills/solution-design/SKILL.md](../skills/solution-design/SKILL.md)` | Các phương án đề xuất và phương án tối ưu được User chọn duyệt. Nếu chưa chốt, quay lại Bước 2. |
+| 5 | Lập bảng danh sách Epic/Story sơ bộ | Lina | `[../skills/solution-design/SKILL.md](../skills/solution-design/SKILL.md)` | Bảng danh sách Epic/Story sơ bộ (`draft_scope_table`) chứa Name, Statement, Goals & Metrics, Scope & Boundaries. |
+| 6 | Chờ User duyệt hoặc comment | Lina | Tương tác trực tiếp với User | Bảng danh sách Epic/Story chính thức được phê duyệt. Nếu có comment chỉnh sửa, quay lại Bước 5. |
+| 7 | Viết tài liệu Brief | Lina | `[../skills/write-epic-specs/SKILL.md](../skills/write-epic-specs/SKILL.md)` | Nội dung tài liệu `brief.md` hoàn chỉnh. |
+| 8 | Lưu brief.md cục bộ | Lina | `[../skills/save-epic-local/SKILL.md](../skills/save-epic-local/SKILL.md)` | Tài liệu `brief.md` được lưu thành công vào workspace. |
 
 ## Definition of Done
 
-* [ ] Đã thu thập đủ ngữ cảnh thông qua các kỹ năng tổ hợp (Project Overview, Historical Context, DB/API Spec).
-* [ ] Yêu cầu thô đã được đánh giá kỹ lưỡng In-scope/Outscope trước khi đem đi Q&A.
-* [ ] Nếu In-scope, yêu cầu được làm rõ với tối đa 3 vòng lặp Q&A không trùng lặp câu hỏi.
-* [ ] Nội dung làm rõ đã được lưu thông qua kỹ năng `log-qna`.
-* [ ] File `brief.md` được tạo đúng định dạng và nội dung.
-* [ ] Tài liệu EPIC đã được upload thành công lên hệ thống thông qua kỹ năng `upload-epic-doc`.
+* [ ] Đã phân tích bối cảnh và lập bảng Ma trận Đánh giá tác động 4 chiều.
+* [ ] Đã thực hiện Q&A liên tục và chốt được yêu cầu nghiệp vụ thực tế với User.
+* [ ] Đã đề xuất các phương án giải pháp nghiệp vụ và được User phê duyệt phương án tối ưu.
+* [ ] Bảng danh sách Epic/Story sơ bộ (Name, Statement, Goals, Scope) được User duyệt hoàn toàn.
+* [ ] Tài liệu Epic Brief (`brief.md`) được cập nhật chứa đúng bảng danh sách đã duyệt và được lưu trữ thành công cục bộ trong workspace.

@@ -12,14 +12,13 @@ Workflow này được kích hoạt bởi các trường hợp sau:
 
 ```mermaid
 flowchart TD
-  Start([Yêu cầu chỉnh sửa tài liệu]) --> GetFeedback[Tool: get_reviewed_request]
-  GetFeedback --> Analyze[Đọc tài liệu gốc & Phân tích Feedback]
+  Start([Nhận feedback review từ User]) --> Analyze[Đọc tài liệu gốc & Phân tích Feedback]
   Analyze --> EditDoc[Chỉnh sửa nội dung tài liệu]
   EditDoc --> CheckType{Loại tài liệu?}
-  CheckType -->|EPIC| UploadEpic[Tool: upload_epic_doc]
-  CheckType -->|STORY| UploadStory[Tool: upload_story_doc]
-  UploadEpic --> ReportDone[Báo cáo hoàn tất]
-  UploadStory --> ReportDone
+  CheckType -->|EPIC| SaveEpic[Skill: save-epic-local]
+  CheckType -->|STORY| SaveStory[Skill: save-story-local]
+  SaveEpic --> ReportDone[Báo cáo hoàn tất]
+  SaveStory --> ReportDone
   ReportDone --> End([Kết thúc quy trình])
 ```
 
@@ -27,16 +26,15 @@ flowchart TD
 
 | # | Bước | Actor | Tool/Action | Output |
 | --- | --- | --- | --- | --- |
-| 1 | Lấy kết quả review từ hệ thống | Lina | `[../skills/lina-mcp/get-reviewed-request/SKILL.md](../skills/lina-mcp/get-reviewed-request/SKILL.md)` | Nội dung comment/feedback chi tiết từ Mattin, David, hoặc Leader. |
+| 1 | Tiếp nhận feedback review | Lina | Đọc feedback từ User qua chat/message | Nắm rõ nội dung comment/feedback chi tiết của Reviewer. |
 | 2 | Phân tích và chỉnh sửa tài liệu | Lina | Đọc tài liệu gốc + Cập nhật nội dung theo feedback | File tài liệu gốc (EPIC/STORY) đã được sửa đổi, tối ưu logic. |
-| 3 | Upload tài liệu EPIC mới (nếu có) | Lina | `[../skills/lina-mcp/upload-epic-doc/SKILL.md](../skills/lina-mcp/upload-epic-doc/SKILL.md)` | Tài liệu EPIC mới được cập nhật thành công lên hệ thống. |
-| 4 | Upload tài liệu STORY mới (nếu có) | Lina | `[../skills/lina-mcp/upload-story-doc/SKILL.md](../skills/lina-mcp/upload-story-doc/SKILL.md)` | Tài liệu STORY mới được cập nhật thành công lên hệ thống. |
+| 3 | Lưu tài liệu EPIC mới (nếu có) | Lina | `[../skills/save-epic-local/SKILL.md](../skills/save-epic-local/SKILL.md)` | Tài liệu EPIC mới được lưu thành công vào workspace. |
+| 4 | Lưu tài liệu STORY mới (nếu có) | Lina | `[../skills/save-story-local/SKILL.md](../skills/save-story-local/SKILL.md)` | Bộ tài liệu STORY mới được lưu thành công vào workspace. |
 | 5 | Thông báo kết quả | Lina | Gửi log/message xác nhận | Báo cáo hoàn tất gửi tới Reviewer/User. |
 
 ## Definition of Done
 
-* [ ] Lấy thành công toàn bộ dữ liệu feedback thông qua kỹ năng `get-reviewed-request`.
+* [ ] Đã đọc và phân tích kỹ lưỡng toàn bộ dữ liệu feedback nhận được từ User.
 * [ ] Mọi comment, điểm lưu ý từ Mattin, David, hoặc Leader đều được chỉnh sửa triệt để trong tài liệu mới.
-* [ ] Tài liệu được upload đúng phân loại (EPIC hoặc STORY) qua các kỹ năng chuyên biệt tương ứng.
-* [ ] Không xảy ra lỗi trùng lặp phiên bản hoặc ghi đè sai file trên hệ thống.
+* [ ] Tài liệu được lưu trữ đúng vị trí cục bộ trong workspace qua kỹ năng `save-epic-local` hoặc `save-story-local`.
 * [ ] Trạng thái workflow được cập nhật thành công sang "Hoàn tất chỉnh sửa".
