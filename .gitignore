@@ -20,4 +20,4 @@ build/
 AGENTS.md
 .agents
 !*/**/AGENTS.md
-!*/**/.agents
+!*/**/.agentsmcp_config.json
