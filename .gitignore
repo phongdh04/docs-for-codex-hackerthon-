@@ -21,3 +21,4 @@ AGENTS.md
 .agents
 !*/**/AGENTS.md
 !*/**/.agentsmcp_config.json
+mcp_config.json
