@@ -30,7 +30,7 @@ Mỗi test case phải assert tối thiểu:
 | Layer | Assertion |
 |---|---|
 | `product_aliases` | Có row cho alias hoặc `normalized_alias` từ Excel |
-| `canonical_terms` | `canonical_id`, `canonical_term`, `category`, `material`, `application` đúng với Excel |
+| Excel canonical fixture / extraction JSON | `canonical_id`, `canonical_term`, `category`, `material`, `application` đúng với Excel; DB schema hiện tại assert qua `product_aliases` và `draft_order_lines.extracted_attributes` |
 | `draft_order_lines` | Tách đúng line, quantity, unit, attributes, missing attributes |
 | `sku_candidates` | Candidate đúng nằm Top-3 nếu là hàng bán được |
 | `sku_candidates.match_reason` | Có lý do dựa trên alias/canonical/category/material/size/brand |
@@ -56,7 +56,7 @@ Mỗi test case phải assert tối thiểu:
 Để chạy bộ test này, seed DB nên có:
 
 - `product_aliases` import từ toàn bộ `Alias_Map`.
-- `canonical_terms` import từ `Canonical_Terms`.
+- Canonical fixture từ sheet `Canonical_Terms`; vì DB schema hiện tại chưa có bảng `canonical_terms`, test runner có thể giữ fixture ngoài DB hoặc lưu metadata vào JSON/`product_aliases.note`.
 - SKU mẫu cho PVC-U/Bình Minh/Tiền Phong/Dekko: D21, D27, D34, D60, D90, D110.
 - SKU mẫu cho PP-R: D21, D25, PN10, PN16, PN20.
 - SKU mẫu cho HDPE/PE: D60, D90, dạng cây/cuộn 100m.
